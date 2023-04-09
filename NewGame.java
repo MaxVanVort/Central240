@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.Random;
 
 class T3B implements ActionListener {
     // each button listener stores the name of the button
@@ -87,7 +87,11 @@ public class NewGame {
             return (true);
         } else return b1 && b2 && b3;
     }
-
+    public static boolean fTurn() {
+        Random random = new Random();
+        int i = random.nextInt((2 - 0) + 0);
+        return i == 1;
+    }
     public NewGame(){
         JPanel grid = new JPanel();
         GridLayout layout = new GridLayout(3, 3);
@@ -123,6 +127,8 @@ public class NewGame {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        Ai benny = new Ai();
+        setTurn(fTurn());
 
         while (!isGameOver()){
 
@@ -133,7 +139,7 @@ public class NewGame {
                 }
                 setGameOver(won("X"));
             } else {
-
+                benny.getBChoice();
                 setGameOver(won("O"));
                 setTurn(true);
             }
