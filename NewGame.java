@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 class T3B implements ActionListener {
     // each button listener stores the name of the button
@@ -36,17 +36,17 @@ class T3B implements ActionListener {
 public class NewGame {
     // create and set up the window.
     JFrame frame = new JFrame("Tic_Tac_Toe");
-    public JButton b1 = new JButton("");
-    public JButton b2 = new JButton("");
-    public JButton b3 = new JButton("");
-    public JButton b4 = new JButton("");
-    public JButton b5 = new JButton("");
-    public JButton b6 = new JButton("");
-    public JButton b7 = new JButton("");
-    public JButton b8 = new JButton("");
-    public JButton b9 = new JButton("");
-    public String wLT = "w/l/t";
-    public JButton Menu = new JButton("MENU");
+    public static JButton b1 = new JButton("");
+    public static JButton b2 = new JButton("");
+    public static JButton b3 = new JButton("");
+    public static JButton b4 = new JButton("");
+    public static JButton b5 = new JButton("");
+    public static JButton b6 = new JButton("");
+    public static JButton b7 = new JButton("");
+    public static JButton b8 = new JButton("");
+    public static JButton b9 = new JButton("");
+    public static String wLT = "w/l/t";
+    public static JButton Menu = new JButton("MENU");
     private boolean turn;
     private boolean GameOver = false;
 
@@ -62,7 +62,7 @@ public class NewGame {
     public void setTurn(boolean turn) {
         this.turn = turn;
     }
-    public boolean won(String PorB){
+    public static boolean won(String PorB){
         boolean a1 = b1.getText().equals(PorB);
         boolean a2 = b2.getText().equals(PorB);
         boolean a3 = b3.getText().equals(PorB);
@@ -124,7 +124,7 @@ public class NewGame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
-        while (!GameOver){
+        while (!isGameOver()){
 
             if (isTurn()){
 
