@@ -35,7 +35,7 @@ class T3B implements ActionListener {
 
 public class NewGame {
     // create and set up the window.
-    JFrame frame = new JFrame("Tic_Tac_Toe");
+    JFrame frame;
     public static JButton b1 = new JButton("");
     public static JButton b2 = new JButton("");
     public static JButton b3 = new JButton("");
@@ -87,12 +87,24 @@ public class NewGame {
             return (true);
         } else return b1 && b2 && b3;
     }
+    public static boolean tie(){
+        return (!(b1.getText().equals("") || b2.getText().equals("") || b3.getText().equals("") || b4.getText().equals("") || b5.getText().equals("") || b6.getText().equals("") || b7.getText().equals("") || b8.getText().equals("") || b9.getText().equals("") ));
+    }
     public static boolean fTurn() {
         Random random = new Random();
         int i = random.nextInt((2 - 0) + 0);
         return i == 1;
     }
-    public NewGame(){
+    public static void setWLT(String wLT) {
+        NewGame.wLT = wLT;
+    }
+    public static String getWLT() {
+        return wLT;
+    }
+
+    public NewGame(JFrame f){
+        f = new JFrame("Tic_Tac_Toe");
+        frame = f;
         JPanel grid = new JPanel();
         GridLayout layout = new GridLayout(3, 3);
         grid.setLayout(layout);
@@ -138,10 +150,20 @@ public class NewGame {
                     // use NewGame.setTurn(false); to end turn in Player class
                 }
                 setGameOver(won("X"));
+                if(won("X")){
+                    setWLT("1/0/0");
+                }
             } else {
                 benny.getBChoice();
                 setGameOver(won("O"));
+                if(won("0")){
+                    setWLT("0/1/0");
+                }
                 setTurn(true);
+            }
+            if (tie()){
+                setGameOver(tie());
+                setWLT("0/0/1");
             }
         }
 
