@@ -35,7 +35,7 @@ class T3B implements ActionListener {
 
 public class NewGame {
     // create and set up the window.
-    JFrame frame;
+    JFrame frame = new JFrame("Tic_Tac_Toe");
     public static JButton b1 = new JButton("");
     public static JButton b2 = new JButton("");
     public static JButton b3 = new JButton("");
@@ -102,9 +102,7 @@ public class NewGame {
         return wLT;
     }
 
-    public NewGame(JFrame f){
-        f = new JFrame("Tic_Tac_Toe");
-        frame = f;
+    public NewGame(){
         JPanel grid = new JPanel();
         GridLayout layout = new GridLayout(3, 3);
         grid.setLayout(layout);
@@ -147,23 +145,29 @@ public class NewGame {
             if (isTurn()){
 
                 while(isTurn()) {
-                    // use NewGame.setTurn(false); to end turn in Player class
+                    /*
+                    This is because the while loop will start Benny's turn before the player has made a choice.
+                    so while it is the players turn and the player hasn't made a move it will stay the players turn.
+                     */
+                    setTurn(T3B.isYourTurn());
                 }
-                setGameOver(won("X"));
                 if(won("X")){
                     setWLT("1/0/0");
                 }
+                setGameOver(won("X"));
+
             } else {
                 benny.getBChoice();
-                setGameOver(won("O"));
                 if(won("0")){
                     setWLT("0/1/0");
                 }
+                setGameOver(won("O"));
+
                 setTurn(true);
             }
             if (tie()){
-                setGameOver(tie());
                 setWLT("0/0/1");
+                setGameOver(tie());
             }
         }
 
