@@ -5,18 +5,18 @@ import java.awt.event.ActionListener;
 public class Menu {
     JFrame frame;
     JLabel label;
-    public static JButton newGameButton = new JButton("new game");
-    public static JButton sbButton = new JButton("scorboard");
-    public static JButton exitButton = new JButton("exit");
+    public static JButton newGameButton = new JButton("NEW GAME");
+    public static JButton sbButton = new JButton("SCOREBOARD");
+    public static JButton exitButton = new JButton("EXIT");
     public Menu(){
         frame = new JFrame("menu");
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setLayout(new BorderLayout(20,15));
-        frame.add(newGameButton, BorderLayout.CENTER);
+        frame.add(newGameButton).setSize(300,100);
         newGameButton.addActionListener(new ButtonListener(newGameButton,frame));
-        frame.add(sbButton, BorderLayout.CENTER);
+        frame.add(sbButton).setSize(300,100);
         sbButton.addActionListener(new ButtonListener(sbButton,frame));
-        frame.add(exitButton, BorderLayout.CENTER);
+        frame.add(exitButton).setSize(300,100);
         exitButton.addActionListener(new ButtonListener(exitButton,frame));
         frame.setSize(300,300);
         frame.setVisible(true);
@@ -35,9 +35,9 @@ class ButtonListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(button.getText().equals ("new game")){
+        if(button.getText().equals ("NEW GAME")){
             NewGame ng = new NewGame(frame);
-        }else if(button.getText().equals ("exit")){
+        }else if(button.getText().equals ("EXIT")){
             System.exit (0);
         }{
 
