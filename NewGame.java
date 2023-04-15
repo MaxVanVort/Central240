@@ -35,7 +35,7 @@ class T3B implements ActionListener {
 
 public class NewGame {
     // create and set up the window.
-    JFrame frame = new JFrame("Tic_Tac_Toe");
+    JFrame frame;
     public static JButton b1 = new JButton("");
     public static JButton b2 = new JButton("");
     public static JButton b3 = new JButton("");
@@ -102,7 +102,9 @@ public class NewGame {
         return wLT;
     }
 
-    public NewGame(){
+    public NewGame(JFrame f){
+        f = new JFrame("Tic_Tac_Toe");
+        frame = f;
         JPanel grid = new JPanel();
         GridLayout layout = new GridLayout(3, 3);
         grid.setLayout(layout);
