@@ -9,7 +9,7 @@ public class Menu {
     public static JButton sbButton = new JButton("SCOREBOARD");
     public static JButton exitButton = new JButton("EXIT");
     public Menu(){
-        frame = new JFrame("menu");
+        frame = new JFrame("Menu");
         JPanel grid = new JPanel();
         GridLayout layout = new GridLayout(3, 3);
         grid.setLayout(layout);
