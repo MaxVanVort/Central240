@@ -13,11 +13,17 @@ public class Menu {
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setLayout(new BorderLayout(20,15));
         frame.add(newGameButton, BorderLayout.CENTER);
+        newGameButton.addActionListener(new ButtonListener(newGameButton,frame));
         frame.add(sbButton, BorderLayout.CENTER);
+        sbButton.addActionListener(new ButtonListener(sbButton,frame));
         frame.add(exitButton, BorderLayout.CENTER);
-
+        exitButton.addActionListener(new ButtonListener(exitButton,frame));
+        frame.setSize(300,300);
+        frame.setVisible(true);
     }
-
+    public static void main(String[] args) {
+        new Menu();
+    }
 }
 class ButtonListener implements ActionListener {
     private final JButton button;
