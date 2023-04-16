@@ -51,7 +51,10 @@ class ButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(button.getText().equals ("NEW GAME")){
-            NewGame ng = new NewGame(frame);
+
+            NewGame nextGame = new NewGame();
+
+
         }else if(button.getText().equals ("EXIT")){
             System.exit (0);
         }{
