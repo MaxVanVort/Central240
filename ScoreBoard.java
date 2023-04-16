@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class ScoreBoard {
+public class ScoreBoard extends Menu{
     protected JTextField tF=new JTextField();
     protected JTextArea tA=new JTextArea();
     public JButton menu=new JButton();
