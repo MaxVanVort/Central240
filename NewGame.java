@@ -14,8 +14,8 @@ class T3B implements ActionListener {
     }
 
     // given the text and if it's the players turn, when it's created
-    public T3B( boolean y,JButton b) {
-        yourTurn = y;
+    public T3B(JButton b) {
+        yourTurn = true;
         button = b;
     }
 
@@ -25,7 +25,7 @@ class T3B implements ActionListener {
         if (isYourTurn()){
             if (button.getText().equals("")) {
                 button.setText("X");
-                yourTurn = false;
+                yourTurn = true;
 
             }
 
@@ -109,23 +109,23 @@ public class NewGame {
         GridLayout layout = new GridLayout(3, 3);
         grid.setLayout(layout);
         grid.add(b1);
-        b1.addActionListener(new T3B(turn,b1));
+        b1.addActionListener(new T3B(b1));
         grid.add(b2);
-        b2.addActionListener(new T3B(turn,b2));
+        b2.addActionListener(new T3B(,b2));
         grid.add(b3);
-        b3.addActionListener(new T3B(turn,b3));
+        b3.addActionListener(new T3B(b3));
         grid.add(b4);
-        b4.addActionListener(new T3B(turn,b4));
+        b4.addActionListener(new T3B(b4));
         grid.add(b5);
-        b5.addActionListener(new T3B(turn,b5));
+        b5.addActionListener(new T3B(b5));
         grid.add(b6);
-        b6.addActionListener(new T3B(turn,b6));
+        b6.addActionListener(new T3B(b6));
         grid.add(b7);
-        b7.addActionListener(new T3B(turn,b7));
+        b7.addActionListener(new T3B(b7));
         grid.add(b8);
-        b8.addActionListener(new T3B(turn,b8));
+        b8.addActionListener(new T3B(b8));
         grid.add(b9);
-        b9.addActionListener(new T3B(turn,b9));
+        b9.addActionListener(new T3B(b9));
         // makes a vertical box layout for the grid of button.
         BoxLayout mainLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS);
         frame.getContentPane().setLayout(mainLayout);
@@ -151,7 +151,8 @@ public class NewGame {
                     This is because the while loop will start Benny's turn before the player has made a choice.
                     so while it is the players turn and the player hasn't made a move it will stay the players turn.
                      */
-                    setTurn(T3B.isYourTurn());
+                    boolean b = T3B.isYourTurn();
+                    setTurn(b);
                 }
                 if(won("X")){
                     setWLT("1/0/0");
