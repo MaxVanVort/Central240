@@ -52,7 +52,7 @@ class ButtonListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(button.getText().equals ("NEW GAME")){
 
-            NewGame nextGame = new NewGame();
+            new NewGame();
 
 
         }else if(button.getText().equals ("EXIT")){
