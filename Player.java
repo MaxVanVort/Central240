@@ -8,7 +8,10 @@ public class Player {
     public String getUsername(){
         return username;
     }
-    public void SetUsername(String u){
+    public void setUsername(String u){
         username=u;
+    }
+    public Player(){
+
     }
 }

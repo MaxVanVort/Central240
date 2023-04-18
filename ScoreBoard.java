@@ -9,7 +9,10 @@ public class ScoreBoard extends Menu implements ActionListener {
     protected JTextArea tA=new JTextArea();
     public JButton menu=new JButton("MENU");
     public JFrame Scoreboard(JFrame frame){
-        return null;
+        frame=new JFrame("Score_Board");
+        JPanel sDisplay = new JPanel();
+
+        frame.setVisible(true);
     }
     public FileReader File;
     {
