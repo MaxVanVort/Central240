@@ -4,44 +4,54 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ScoreBoard extends JPanel implements ActionListener {
     JFrame frame;
-    public static JButton sb1 = new JButton("Score");
-    public static JButton sb2 = new JButton("Wins");
-    public static JButton sb3 = new JButton("User: ");
-    public static JButton sb4 = new JButton("*USER WINS HERE*");
-    public static JButton sb5 = new JButton("Benny: ");
-    public static JButton sb6 = new JButton("*BENNY WINS HERE*");
-    public static JButton sb7 = new JButton("Ties: ");
-    public static JButton sb8 = new JButton("*TIES HERE*");
-    protected JTextField tF=new JTextField();
-    protected JTextArea tA=new JTextArea();
-    public JButton menu=new JButton("MENU");
-    public JFrame Scoreboard(JFrame frame){
-        frame=new JFrame("Score_Board");
-        JPanel sDisplay = new JPanel();
-        GridLayout sbLayout = new GridLayout(4,2);
-        sDisplay.setLayout(sbLayout);
-        sDisplay.add(sb1);
-        sDisplay.add(sb2);
-        sDisplay.add(sb3);
-        sDisplay.add(sb4);
-        sDisplay.add(sb5);
-        sDisplay.add(sb6);
-        sDisplay.add(sb7);
-        sDisplay.add(sb8);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-        frame.setPreferredSize(new Dimension(300, 300));
-        sDisplay.setPreferredSize(new Dimension(300, 300));
-        return null;
+    protected JTextField tF;
+    protected JTextArea tA;
+    private final static String newline = "\n";
+    public JButton menu = new JButton("MENU");
+    public ScoreBoard(){
+        frame = new JFrame("Score_Board");
+        tF = new JTextField(5);
+        tA = new JTextArea(2, 5);
+        JScrollPane scrollPane = new JScrollPane(tA);
+        tA.setEditable(false);
+
+        //Add Components to this panel.
+        GridBagConstraints c = new GridBagConstraints();
+        c.gridwidth = GridBagConstraints.REMAINDER;
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        add(tF, c);
+
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1.0;
+        c.weighty = 1.0;
+        add(scrollPane, c);
+
+        String text = tF.getText();
+
     }
-    public FileReader File;
+    private static void fileReader()
     {
         try {
-            File = new FileReader("ScoreBoard");
+            //open he file
+            FileReader file = new FileReader("ScoreBoard.txt");
+
+            // make a scanner
+            Scanner in = new Scanner(file);
+            // makes an ArrayList
+            ArrayList<String> scores = new ArrayList<>();
+
+            // puts all words in arraylist
+            while (in.hasNextLine()) {
+                scores.add(in.nextLine());
+
+            }
+
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

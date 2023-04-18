@@ -2,178 +2,424 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 
-class T3B implements ActionListener {
-    // each button listener stores the name of the button
-    private final JButton button;
-    private static boolean yourTurn;
+public class NewGame implements ActionListener{
+    Random random = new Random();
+    JFrame frame = new JFrame();
+    //JPanel title_panel = new JPanel();
+    JPanel grid = new JPanel();
+    //JLabel textfield = new JLabel();
+    boolean gameOver = false;
 
-    public static boolean isYourTurn() {
-        return yourTurn;
-    }
+    ArrayList<JButton> buttons = new ArrayList<>();
+    boolean yourTurn;
 
-    // given the text and if it's the players turn, when it's created
-    public T3B(JButton b) {
-        yourTurn = true;
-        button = b;
-    }
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (isYourTurn()){
-            if (button.getText().equals("")) {
-                button.setText("X");
-                yourTurn = true;
-
-            }
-
+    NewGame(){
+        frame.setDefaultCloseOperation(frame.DO_NOTHING_ON_CLOSE);
+        for(int i=0;i<9;i++){
+            buttons.add(i,new JButton());
+            buttons.get(i).setText("");
+            grid.add(buttons.get(i));
+            buttons.get(i).setFocusable(false);
+            buttons.get(i).addActionListener(this);
         }
-    }
-}
-
-public class NewGame {
-    // create and set up the window.
-    JFrame frame;
-    public static JButton b1 = new JButton("");
-    public static JButton b2 = new JButton("");
-    public static JButton b3 = new JButton("");
-    public static JButton b4 = new JButton("");
-    public static JButton b5 = new JButton("");
-    public static JButton b6 = new JButton("");
-    public static JButton b7 = new JButton("");
-    public static JButton b8 = new JButton("");
-    public static JButton b9 = new JButton("");
-    public static String wLT = "w/l/t";
-    public static JButton Menu = new JButton("MENU");
-    private boolean turn;
-    private boolean GameOver = false;
-
-    public boolean isGameOver(){
-        return GameOver;
-    }
-    public void setGameOver(boolean gameOver) {
-        GameOver = gameOver;
-    }
-    public boolean isTurn() {
-        return turn;
-    }
-    public void setTurn(boolean turn) {
-        this.turn = turn;
-    }
-    public static boolean won(String PorB){
-        boolean a1 = b1.getText().equals(PorB);
-        boolean a2 = b2.getText().equals(PorB);
-        boolean a3 = b3.getText().equals(PorB);
-        boolean b1 = b4.getText().equals(PorB);
-        boolean b2 = b5.getText().equals(PorB);
-        boolean b3 = b6.getText().equals(PorB);
-        boolean c1 = b7.getText().equals(PorB);
-        boolean c2 = b8.getText().equals(PorB);
-        boolean c3 = b9.getText().equals(PorB);
-
-        if (a1 && a2 && a3){
-            return (true);
-        } else if (a1 && b1 && c1) {
-            return (true);
-        } else if (a1 && b2 && c3) {
-            return (true);
-        } else if (a2 && b2 && c2) {
-            return (true);
-        } else if (a3 && b3 && c3) {
-            return (true);
-        } else if (a3 && b2 && c1) {
-            return (true);
-        } else return b1 && b2 && b3;
-    }
-    public static boolean tie(){
-        return (!(b1.getText().equals("") || b2.getText().equals("") || b3.getText().equals("") || b4.getText().equals("") || b5.getText().equals("") || b6.getText().equals("") || b7.getText().equals("") || b8.getText().equals("") || b9.getText().equals("") ));
-    }
-    public static boolean fTurn() {
-        Random random = new Random();
-        int i = random.nextInt((2 - 0) + 0);
-        return i == 1;
-    }
-    public static void setWLT(String wLT) {
-        NewGame.wLT = wLT;
-    }
-    public static String getWLT() {
-        return wLT;
-    }
-
-    public NewGame(JFrame f){
-        f = new JFrame("Tic_Tac_Toe");
-        frame = f;
-        JPanel grid = new JPanel();
-        GridLayout layout = new GridLayout(3, 3);
-        grid.setLayout(layout);
-        grid.add(b1);
-        b1.addActionListener(new T3B(b1));
-        grid.add(b2);
-        b2.addActionListener(new T3B(b2));
-        grid.add(b3);
-        b3.addActionListener(new T3B(b3));
-        grid.add(b4);
-        b4.addActionListener(new T3B(b4));
-        grid.add(b5);
-        b5.addActionListener(new T3B(b5));
-        grid.add(b6);
-        b6.addActionListener(new T3B(b6));
-        grid.add(b7);
-        b7.addActionListener(new T3B(b7));
-        grid.add(b8);
-        b8.addActionListener(new T3B(b8));
-        grid.add(b9);
-        b9.addActionListener(new T3B(b9));
+        fTurn();
+        frame.setSize(300,300);
+        grid.setLayout(new GridLayout(3, 3));
+        grid.setBackground(new Color(150,150,150));
         // makes a vertical box layout for the grid of button.
         BoxLayout mainLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS);
         frame.getContentPane().setLayout(mainLayout);
         // add the grid
         frame.getContentPane().add(grid);
-        frame.setPreferredSize(new Dimension(300, 300));
-        grid.setPreferredSize(new Dimension(300, 300));
-
-
-        // display the window.
-        frame.pack();
-        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        Ai benny = new Ai();
-        setTurn(fTurn());
 
-        while (!isGameOver()){
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
 
-            if (isTurn()){
+        if (!gameOver) {
 
-                while(isTurn()) {
-                    /*
-                    This is because the while loop will start Benny's turn before the player has made a choice.
-                    so while it is the players turn and the player hasn't made a move it will stay the players turn.
-                     */
-                    boolean b = T3B.isYourTurn();
-                    setTurn(b);
+            for (int i = 0; i < 9; i++) {
+                if (e.getSource() == buttons.get(i)) {
+                    if (yourTurn) {
+                        if (buttons.get(i).getText().equals("")) {
+                            buttons.get(i).setText("X");
+                            if( won("X")){
+                                win("X");
+                            }
+                            win("");
+                            yourTurn = false;
+
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                            if (!gameOver) {
+                                aiBenny();
+                                win("O");
+                                win("");
+                            }
+                        }
+                    }
                 }
-                if(won("X")){
-                    setWLT("1/0/0");
-                }
-                setGameOver(won("X"));
 
-            } else {
-                benny.getBChoice();
-                if(won("0")){
-                    setWLT("0/1/0");
-                }
-                setGameOver(won("O"));
 
-                setTurn(true);
             }
-            if (tie()){
-                setWLT("0/0/1");
-                setGameOver(tie());
-            }
+        } else {
+
         }
 
+
+    }
+
+    public void fTurn() {
+        yourTurn = random.nextInt(2) == 1;
+        if (!yourTurn){
+            aiBenny();
+            yourTurn = true;
+        }
+
+    }
+    public boolean won(String PorB){
+        boolean b1 = buttons.get(0).getText().equals(PorB);
+        boolean b2 = buttons.get(1).getText().equals(PorB);
+        boolean b3 = buttons.get(2).getText().equals(PorB);
+        boolean b4 = buttons.get(3).getText().equals(PorB);
+        boolean b5 = buttons.get(4).getText().equals(PorB);
+        boolean b6 = buttons.get(5).getText().equals(PorB);
+        boolean b7 = buttons.get(6).getText().equals(PorB);
+        boolean b8 = buttons.get(7).getText().equals(PorB);
+        boolean b9 = buttons.get(8).getText().equals(PorB);
+
+        if (b1 && b2 && b3){
+            return (true);
+        }else if (b4 && b5 && b6){
+            return (true);
+        }else if (b7 && b8 && b9){
+            return (true);
+        }else if (b1 && b4 && b7){
+            return (true);
+        }else if (b2 && b5 && b8){
+            return (true);
+        }else if (b3 && b6 && b9){
+            return (true);
+        }else if (b1 && b5 && b9){
+            return (true);
+        } else if (b3 && b5 && b7){
+            return (true);
+        }else return false;
+
+    }
+
+    public void win(String PorB){
+        boolean b1 = buttons.get(0).getText().equals(PorB);
+        boolean b2 = buttons.get(1).getText().equals(PorB);
+        boolean b3 = buttons.get(2).getText().equals(PorB);
+        boolean b4 = buttons.get(3).getText().equals(PorB);
+        boolean b5 = buttons.get(4).getText().equals(PorB);
+        boolean b6 = buttons.get(5).getText().equals(PorB);
+        boolean b7 = buttons.get(6).getText().equals(PorB);
+        boolean b8 = buttons.get(7).getText().equals(PorB);
+        boolean b9 = buttons.get(8).getText().equals(PorB);
+
+        if (!PorB.equals("")) {
+
+            if (b1 && b2 && b3) {
+
+            if (PorB.equals("X")) {
+                buttons.get(0).setBackground(Color.GREEN);
+                buttons.get(1).setBackground(Color.GREEN);
+                buttons.get(2).setBackground(Color.GREEN);
+
+                buttons.get(0).setText("W");
+                buttons.get(1).setText("I");
+                buttons.get(2).setText("N");
+            } else if (PorB.equals("O")) {
+                buttons.get(0).setBackground(Color.RED);
+                buttons.get(1).setBackground(Color.RED);
+                buttons.get(2).setBackground(Color.RED);
+
+                buttons.get(0).setText("L");
+                buttons.get(1).setText("O");
+                buttons.get(2).setText("S");
+            }
+            gameOver = true;
+            for (int i = 0; i < 9; i++) {
+
+                buttons.get(i).setEnabled(false);
+            }
+        } else if (b4 && b5 && b6) {
+
+            if (PorB.equals("X")) {
+                buttons.get(3).setBackground(Color.GREEN);
+                buttons.get(4).setBackground(Color.GREEN);
+                buttons.get(5).setBackground(Color.GREEN);
+
+                buttons.get(3).setText("W");
+                buttons.get(4).setText("I");
+                buttons.get(5).setText("N");
+            } else if (PorB.equals("O")) {
+                buttons.get(3).setBackground(Color.RED);
+                buttons.get(4).setBackground(Color.RED);
+                buttons.get(5).setBackground(Color.RED);
+
+                buttons.get(3).setText("L");
+                buttons.get(4).setText("O");
+                buttons.get(5).setText("S");
+            }
+            gameOver = true;
+            for (int i = 0; i < 9; i++) {
+                buttons.get(i).setEnabled(false);
+            }
+
+        } else if (b7 && b8 && b9) {
+
+            if (PorB.equals("X")) {
+                buttons.get(6).setBackground(Color.GREEN);
+                buttons.get(7).setBackground(Color.GREEN);
+                buttons.get(8).setBackground(Color.GREEN);
+
+                buttons.get(6).setText("W");
+                buttons.get(7).setText("I");
+                buttons.get(8).setText("N");
+            }else if (PorB.equals("O")) {
+                buttons.get(6).setBackground(Color.RED);
+                buttons.get(7).setBackground(Color.RED);
+                buttons.get(8).setBackground(Color.RED);
+
+                buttons.get(6).setText("L");
+                buttons.get(7).setText("O");
+                buttons.get(8).setText("S");
+            }
+            gameOver = true;
+            for (int i = 0; i < 9; i++) {
+                buttons.get(i).setEnabled(false);
+            }
+        } else if (b1 && b4 && b7) {
+
+            if (PorB.equals("X")) {
+                buttons.get(0).setBackground(Color.GREEN);
+                buttons.get(3).setBackground(Color.GREEN);
+                buttons.get(6).setBackground(Color.GREEN);
+
+                buttons.get(0).setText("W");
+                buttons.get(3).setText("I");
+                buttons.get(6).setText("N");
+            }else if (PorB.equals("O")) {
+                buttons.get(0).setBackground(Color.RED);
+                buttons.get(3).setBackground(Color.RED);
+                buttons.get(6).setBackground(Color.RED);
+
+                buttons.get(0).setText("L");
+                buttons.get(3).setText("O");
+                buttons.get(6).setText("S");
+            }
+            gameOver = true;
+            for (int i = 0; i < 9; i++) {
+                buttons.get(i).setEnabled(false);
+            }
+        } else if (b2 && b5 && b8) {
+
+            if (PorB.equals("X")) {
+                buttons.get(1).setBackground(Color.GREEN);
+                buttons.get(4).setBackground(Color.GREEN);
+                buttons.get(7).setBackground(Color.GREEN);
+
+                buttons.get(1).setText("W");
+                buttons.get(4).setText("I");
+                buttons.get(7).setText("N");
+            } else if (PorB.equals("O")) {
+                buttons.get(1).setBackground(Color.RED);
+                buttons.get(4).setBackground(Color.RED);
+                buttons.get(7).setBackground(Color.RED);
+
+                buttons.get(1).setText("L");
+                buttons.get(4).setText("O");
+                buttons.get(7).setText("S");
+            }
+            gameOver = true;
+            for (int i = 0; i < 9; i++) {
+                buttons.get(i).setEnabled(false);
+            }
+        } else if (b3 && b6 && b9) {
+
+            if (PorB.equals("X")) {
+                buttons.get(2).setBackground(Color.GREEN);
+                buttons.get(5).setBackground(Color.GREEN);
+                buttons.get(8).setBackground(Color.GREEN);
+
+                buttons.get(2).setText("W");
+                buttons.get(5).setText("I");
+                buttons.get(8).setText("N");
+            }else if (PorB.equals("O")) {
+                buttons.get(2).setBackground(Color.RED);
+                buttons.get(5).setBackground(Color.RED);
+                buttons.get(8).setBackground(Color.RED);
+
+                buttons.get(2).setText("L");
+                buttons.get(5).setText("O");
+                buttons.get(8).setText("S");
+            }
+            gameOver = true;
+            for (int i = 0; i < 9; i++) {
+                buttons.get(i).setEnabled(false);
+            }
+        } else if (b1 && b5 && b9) {
+
+            if (PorB.equals("X")) {
+                buttons.get(0).setBackground(Color.GREEN);
+                buttons.get(4).setBackground(Color.GREEN);
+                buttons.get(8).setBackground(Color.GREEN);
+
+                buttons.get(0).setText("W");
+                buttons.get(4).setText("I");
+                buttons.get(8).setText("N");
+            } else if (PorB.equals("O")) {
+                buttons.get(0).setBackground(Color.RED);
+                buttons.get(4).setBackground(Color.RED);
+                buttons.get(8).setBackground(Color.RED);
+
+                buttons.get(0).setText("L");
+                buttons.get(4).setText("O");
+                buttons.get(8).setText("S");
+            }
+            gameOver = true;
+            for (int i = 0; i < 9; i++) {
+                buttons.get(i).setEnabled(false);
+            }
+        } else if (b3 && b5 && b7) {
+
+            if (PorB.equals("X")) {
+                buttons.get(2).setBackground(Color.GREEN);
+                buttons.get(4).setBackground(Color.GREEN);
+                buttons.get(6).setBackground(Color.GREEN);
+
+                buttons.get(2).setText("W");
+                buttons.get(4).setText("I");
+                buttons.get(6).setText("N");
+            } else if (PorB.equals("O")) {
+                buttons.get(2).setBackground(Color.RED);
+                buttons.get(4).setBackground(Color.RED);
+                buttons.get(6).setBackground(Color.RED);
+
+                buttons.get(2).setText("L");
+                buttons.get(4).setText("O");
+                buttons.get(6).setText("S");
+            }
+            gameOver = true;
+            for (int i = 0; i < 9; i++) {
+                buttons.get(i).setEnabled(false);
+            }
+        }
+    } else {
+        //tie
+            if (!(b1 || b2 || b3 || b4 || b5 || b6 || b7 || b8 || b9)) {
+                buttons.get(0).setBackground(Color.BLUE);
+                buttons.get(1).setBackground(Color.BLUE);
+                buttons.get(2).setBackground(Color.BLUE);
+                buttons.get(3).setBackground(Color.BLUE);
+                buttons.get(4).setBackground(Color.BLUE);
+                buttons.get(5).setBackground(Color.BLUE);
+                buttons.get(6).setBackground(Color.BLUE);
+                buttons.get(7).setBackground(Color.BLUE);
+                buttons.get(8).setBackground(Color.BLUE);
+                gameOver = true;
+
+                buttons.get(0).setText("T");
+                buttons.get(1).setText("I");
+                buttons.get(2).setText("E");
+
+                buttons.get(3).setText("T");
+                buttons.get(4).setText("I");
+                buttons.get(5).setText("E");
+
+                buttons.get(6).setText("T");
+                buttons.get(7).setText("I");
+                buttons.get(8).setText("E");
+                for (int i = 0; i < 9; i++) {
+                    buttons.get(i).setEnabled(false);
+                }
+            }
+
+    }
+
+
+
+    }
+    public int fTurn(int min, int max) {
+        Random random = new Random();
+        return (random.nextInt(max - min) + min);
+    }
+    /*public boolean nextTo (int button_, JButton next_to){
+        return switch (button_) {
+            case 1 -> (next_to == buttons.get(0) || next_to == buttons.get(4) || next_to == buttons.get(3));
+            case 2 -> (next_to == buttons.get(0) || next_to == buttons.get(4) || next_to == buttons.get(2));
+            case 3 -> (next_to == buttons.get(1) || next_to == buttons.get(4) || next_to == buttons.get(5));
+            case 4 -> (next_to == buttons.get(0) || next_to == buttons.get(4) || next_to == buttons.get(6));
+            case 5 -> (true);
+            case 6 -> (next_to == buttons.get(2) || next_to == buttons.get(4) || next_to == buttons.get(8));
+            case 7 -> (next_to == buttons.get(7) || next_to == buttons.get(4) || next_to == buttons.get(3));
+            case 8 -> (next_to == buttons.get(6) || next_to == buttons.get(4) || next_to == buttons.get(8));
+            case 9 -> (next_to == buttons.get(7) || next_to == buttons.get(4) || next_to == buttons.get(5));
+            default -> false;
+        };
+    }*/
+
+    public void aiBenny() {
+        JButton bChoice;
+        ArrayList<JButton> bestOption = new ArrayList<>();
+        ArrayList<JButton> secondBestOptions = new ArrayList<>();
+        ArrayList<JButton> options = new ArrayList<>();
+
+
+        for (JButton i : buttons) {
+
+            if (i.getText().equals("")) {
+                options.add(i);
+            }
+
+        }
+        if (options.size() == 0) {
+            gameOver = true;
+
+        } else {
+            for (JButton is : options) {
+
+                //checks to see if the AI could win with this option.
+                is.setText("O");
+                if (won("O")) {
+                    // find the button in options, finds the matching button in keys, and gets the index of the button in keys and adds it to bestOptions.
+                    bestOption.add(is);
+                }
+                //Checks to see if this option could stop you.
+                is.setText("X");
+                if (won("X")) {
+                    secondBestOptions.add(is);
+                }
+                is.setText("");
+            }
+
+
+            if (bestOption.size() != 0) {
+                bChoice = bestOption.get(fTurn(0, bestOption.size()));
+
+            } else if (secondBestOptions.size() != 0) {
+                bChoice = secondBestOptions.get(fTurn(0, secondBestOptions.size()));
+            } else {
+                bChoice = options.get(fTurn(0, options.size()));
+            }
+            bestOption.clear();
+            secondBestOptions.clear();
+            options.clear();
+
+            bChoice.setText("O");
+            win("O");
+            yourTurn = true;
+        }
     }
 
 }
