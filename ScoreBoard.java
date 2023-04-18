@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class ScoreBoard extends Menu implements ActionListener {
+public class ScoreBoard extends JPanel implements ActionListener {
     JFrame frame;
     public static JButton sb1 = new JButton("Score");
     public static JButton sb2 = new JButton("Wins");
