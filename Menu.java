@@ -57,7 +57,10 @@ class ButtonListener implements ActionListener {
 
         }else if(button.getText().equals ("EXIT")){
             System.exit (0);
-        }{
+        } else if (button.getText().equals("SCOREBOARD")) {
+            new ScoreBoard();
+        }
+        {
 
         }
     }

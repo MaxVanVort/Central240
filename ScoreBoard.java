@@ -13,6 +13,7 @@ public class ScoreBoard extends JPanel implements ActionListener {
     protected JTextArea tA;
     private final static String newline = "\n";
     public JButton menu = new JButton("MENU");
+    public ArrayList<String> scores = new ArrayList<>();
     public ScoreBoard(){
         frame = new JFrame("Score_Board");
         tF = new JTextField(5);
@@ -33,23 +34,32 @@ public class ScoreBoard extends JPanel implements ActionListener {
         add(scrollPane, c);
 
         String text = tF.getText();
+        fileReader();
+        tA.append("USER: WIN/LOS/TIE" + newline);
+        for (String score:scores){
+            tA.append(score + newline);
+        }
+
+        frame.setSize(1000, 200);
+        tA.setCaretPosition(tA.getDocument().getLength());
+        // display the window.
+
+        frame.setVisible(true);
+
 
     }
-    private static void fileReader()
-    {
+    private void fileReader() {
         try {
-            //open he file
+            //open the file.
             FileReader file = new FileReader("ScoreBoard.txt");
 
             // make a scanner
             Scanner in = new Scanner(file);
-            // makes an ArrayList
-            ArrayList<String> scores = new ArrayList<>();
+
 
             // puts all words in arraylist
             while (in.hasNextLine()) {
                 scores.add(in.nextLine());
-
             }
 
         } catch (FileNotFoundException e) {
