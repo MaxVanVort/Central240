@@ -38,7 +38,7 @@ public class ScoreBoard extends JPanel implements ActionListener {
     private static void fileReader()
     {
         try {
-            //open he file
+            //open the file
             FileReader file = new FileReader("ScoreBoard.txt");
 
             // make a scanner
