@@ -111,7 +111,7 @@ public class NewGame {
         grid.add(b1);
         b1.addActionListener(new T3B(b1));
         grid.add(b2);
-        b2.addActionListener(new T3B(,b2));
+        b2.addActionListener(new T3B(b2));
         grid.add(b3);
         b3.addActionListener(new T3B(b3));
         grid.add(b4);

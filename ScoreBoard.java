@@ -7,7 +7,7 @@ import java.io.FileReader;
 public class ScoreBoard extends Menu implements ActionListener {
     protected JTextField tF=new JTextField();
     protected JTextArea tA=new JTextArea();
-    public JButton menu=new JButton();
+    public JButton menu=new JButton("MENU");
     public JFrame Scoreboard(JFrame frame){
         return null;
     }
