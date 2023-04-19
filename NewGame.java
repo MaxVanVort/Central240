@@ -138,6 +138,7 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("W");
                 buttons.get(1).setText("I");
                 buttons.get(2).setText("N");
+                Player.user.set("1","0","0");
             } else if (PorB.equals("O")) {
                 buttons.get(0).setBackground(Color.RED);
                 buttons.get(1).setBackground(Color.RED);
@@ -146,6 +147,7 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("L");
                 buttons.get(1).setText("O");
                 buttons.get(2).setText("S");
+                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -162,6 +164,7 @@ public class NewGame implements ActionListener{
                 buttons.get(3).setText("W");
                 buttons.get(4).setText("I");
                 buttons.get(5).setText("N");
+                Player.user.set("1","0","0");
             } else if (PorB.equals("O")) {
                 buttons.get(3).setBackground(Color.RED);
                 buttons.get(4).setBackground(Color.RED);
@@ -170,6 +173,7 @@ public class NewGame implements ActionListener{
                 buttons.get(3).setText("L");
                 buttons.get(4).setText("O");
                 buttons.get(5).setText("S");
+                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -186,6 +190,7 @@ public class NewGame implements ActionListener{
                 buttons.get(6).setText("W");
                 buttons.get(7).setText("I");
                 buttons.get(8).setText("N");
+                Player.user.set("1","0","0");
             }else if (PorB.equals("O")) {
                 buttons.get(6).setBackground(Color.RED);
                 buttons.get(7).setBackground(Color.RED);
@@ -194,6 +199,7 @@ public class NewGame implements ActionListener{
                 buttons.get(6).setText("L");
                 buttons.get(7).setText("O");
                 buttons.get(8).setText("S");
+                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -209,6 +215,7 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("W");
                 buttons.get(3).setText("I");
                 buttons.get(6).setText("N");
+                Player.user.set("1","0","0");
             }else if (PorB.equals("O")) {
                 buttons.get(0).setBackground(Color.RED);
                 buttons.get(3).setBackground(Color.RED);
@@ -217,6 +224,7 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("L");
                 buttons.get(3).setText("O");
                 buttons.get(6).setText("S");
+                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -232,6 +240,7 @@ public class NewGame implements ActionListener{
                 buttons.get(1).setText("W");
                 buttons.get(4).setText("I");
                 buttons.get(7).setText("N");
+                Player.user.set("1","0","0");
             } else if (PorB.equals("O")) {
                 buttons.get(1).setBackground(Color.RED);
                 buttons.get(4).setBackground(Color.RED);
@@ -240,6 +249,7 @@ public class NewGame implements ActionListener{
                 buttons.get(1).setText("L");
                 buttons.get(4).setText("O");
                 buttons.get(7).setText("S");
+                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -255,6 +265,7 @@ public class NewGame implements ActionListener{
                 buttons.get(2).setText("W");
                 buttons.get(5).setText("I");
                 buttons.get(8).setText("N");
+                Player.user.set("1","0","0");
             }else if (PorB.equals("O")) {
                 buttons.get(2).setBackground(Color.RED);
                 buttons.get(5).setBackground(Color.RED);
@@ -263,6 +274,7 @@ public class NewGame implements ActionListener{
                 buttons.get(2).setText("L");
                 buttons.get(5).setText("O");
                 buttons.get(8).setText("S");
+                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -278,6 +290,7 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("W");
                 buttons.get(4).setText("I");
                 buttons.get(8).setText("N");
+                Player.user.set("1","0","0");
             } else if (PorB.equals("O")) {
                 buttons.get(0).setBackground(Color.RED);
                 buttons.get(4).setBackground(Color.RED);
@@ -286,6 +299,7 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("L");
                 buttons.get(4).setText("O");
                 buttons.get(8).setText("S");
+                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -301,6 +315,7 @@ public class NewGame implements ActionListener{
                 buttons.get(2).setText("W");
                 buttons.get(4).setText("I");
                 buttons.get(6).setText("N");
+                Player.user.set("1","0","0");
             } else if (PorB.equals("O")) {
                 buttons.get(2).setBackground(Color.RED);
                 buttons.get(4).setBackground(Color.RED);
@@ -309,6 +324,7 @@ public class NewGame implements ActionListener{
                 buttons.get(2).setText("L");
                 buttons.get(4).setText("O");
                 buttons.get(6).setText("S");
+                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -340,6 +356,7 @@ public class NewGame implements ActionListener{
                 buttons.get(6).setText("T");
                 buttons.get(7).setText("I");
                 buttons.get(8).setText("E");
+                Player.user.set("0","0","1");
                 for (int i = 0; i < 9; i++) {
                     buttons.get(i).setEnabled(false);
                 }

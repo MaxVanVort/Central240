@@ -8,11 +8,14 @@ public class Menu {
     public static JButton newGameButton = new JButton("NEW GAME");
     public static JButton sbButton = new JButton("SCOREBOARD");
     public static JButton exitButton = new JButton("EXIT");
+    Player user = new Player();
     public Menu(){
         frame = new JFrame("Menu");
         JPanel grid = new JPanel();
         GridLayout layout = new GridLayout(3, 3);
         grid.setLayout(layout);
+        user.get(user);
+
 
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         //frame.setLayout(new BorderLayout(20,15));
@@ -46,22 +49,27 @@ class ButtonListener implements ActionListener {
     public ButtonListener(JButton b, JFrame f){
         button = b;
         frame = f;
-
     }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(button.getText().equals ("NEW GAME")){
-
             new NewGame();
-
-
         }else if(button.getText().equals ("EXIT")){
             System.exit (0);
         } else if (button.getText().equals("SCOREBOARD")) {
-            new ScoreBoard();
-        }
-        {
+
+            JFrame Score_Board = new JFrame("Score_Board");
+            Score_Board.add(new ScoreBoard());
+            Score_Board.setSize(300, 300);
+            // create the box layout
+            Score_Board.getContentPane().setLayout(new BoxLayout(Score_Board.getContentPane(), BoxLayout.Y_AXIS));
+            // display the window.
+
+            Score_Board.pack();
+            Score_Board.setLocationRelativeTo(null);
+            Score_Board.setVisible(true);
 
         }
+
     }
 }
