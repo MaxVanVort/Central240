@@ -2,8 +2,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class NewGame implements ActionListener{
     Random random = new Random();
@@ -12,9 +17,14 @@ public class NewGame implements ActionListener{
     JPanel grid = new JPanel();
     //JLabel textfield = new JLabel();
     boolean gameOver = false;
+    public ArrayList<String> scores = new ArrayList<>();
 
     ArrayList<JButton> buttons = new ArrayList<>();
     boolean yourTurn;
+
+    private boolean WIN = false;
+    private boolean LOS = false;
+    private boolean TIE = false;
 
     NewGame(){
         frame.setDefaultCloseOperation(frame.DO_NOTHING_ON_CLOSE);
@@ -63,14 +73,15 @@ public class NewGame implements ActionListener{
                                 win("O");
                                 win("");
                             }
+                            if (gameOver){
+                                updateScores();
+                            }
                         }
                     }
                 }
 
 
             }
-        } else {
-
         }
 
 
@@ -138,7 +149,7 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("W");
                 buttons.get(1).setText("I");
                 buttons.get(2).setText("N");
-                Player.user.set("1","0","0");
+                WIN = true;
             } else if (PorB.equals("O")) {
                 buttons.get(0).setBackground(Color.RED);
                 buttons.get(1).setBackground(Color.RED);
@@ -147,7 +158,7 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("L");
                 buttons.get(1).setText("O");
                 buttons.get(2).setText("S");
-                Player.user.set("0","1","0");
+                LOS = true;
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -164,7 +175,7 @@ public class NewGame implements ActionListener{
                 buttons.get(3).setText("W");
                 buttons.get(4).setText("I");
                 buttons.get(5).setText("N");
-                Player.user.set("1","0","0");
+
             } else if (PorB.equals("O")) {
                 buttons.get(3).setBackground(Color.RED);
                 buttons.get(4).setBackground(Color.RED);
@@ -173,7 +184,6 @@ public class NewGame implements ActionListener{
                 buttons.get(3).setText("L");
                 buttons.get(4).setText("O");
                 buttons.get(5).setText("S");
-                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -190,7 +200,6 @@ public class NewGame implements ActionListener{
                 buttons.get(6).setText("W");
                 buttons.get(7).setText("I");
                 buttons.get(8).setText("N");
-                Player.user.set("1","0","0");
             }else if (PorB.equals("O")) {
                 buttons.get(6).setBackground(Color.RED);
                 buttons.get(7).setBackground(Color.RED);
@@ -199,7 +208,6 @@ public class NewGame implements ActionListener{
                 buttons.get(6).setText("L");
                 buttons.get(7).setText("O");
                 buttons.get(8).setText("S");
-                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -215,7 +223,6 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("W");
                 buttons.get(3).setText("I");
                 buttons.get(6).setText("N");
-                Player.user.set("1","0","0");
             }else if (PorB.equals("O")) {
                 buttons.get(0).setBackground(Color.RED);
                 buttons.get(3).setBackground(Color.RED);
@@ -224,7 +231,6 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("L");
                 buttons.get(3).setText("O");
                 buttons.get(6).setText("S");
-                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -240,7 +246,6 @@ public class NewGame implements ActionListener{
                 buttons.get(1).setText("W");
                 buttons.get(4).setText("I");
                 buttons.get(7).setText("N");
-                Player.user.set("1","0","0");
             } else if (PorB.equals("O")) {
                 buttons.get(1).setBackground(Color.RED);
                 buttons.get(4).setBackground(Color.RED);
@@ -249,7 +254,6 @@ public class NewGame implements ActionListener{
                 buttons.get(1).setText("L");
                 buttons.get(4).setText("O");
                 buttons.get(7).setText("S");
-                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -265,7 +269,6 @@ public class NewGame implements ActionListener{
                 buttons.get(2).setText("W");
                 buttons.get(5).setText("I");
                 buttons.get(8).setText("N");
-                Player.user.set("1","0","0");
             }else if (PorB.equals("O")) {
                 buttons.get(2).setBackground(Color.RED);
                 buttons.get(5).setBackground(Color.RED);
@@ -274,7 +277,6 @@ public class NewGame implements ActionListener{
                 buttons.get(2).setText("L");
                 buttons.get(5).setText("O");
                 buttons.get(8).setText("S");
-                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -290,7 +292,6 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("W");
                 buttons.get(4).setText("I");
                 buttons.get(8).setText("N");
-                Player.user.set("1","0","0");
             } else if (PorB.equals("O")) {
                 buttons.get(0).setBackground(Color.RED);
                 buttons.get(4).setBackground(Color.RED);
@@ -299,7 +300,6 @@ public class NewGame implements ActionListener{
                 buttons.get(0).setText("L");
                 buttons.get(4).setText("O");
                 buttons.get(8).setText("S");
-                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -324,7 +324,6 @@ public class NewGame implements ActionListener{
                 buttons.get(2).setText("L");
                 buttons.get(4).setText("O");
                 buttons.get(6).setText("S");
-                Player.user.set("0","1","0");
             }
             gameOver = true;
             for (int i = 0; i < 9; i++) {
@@ -356,7 +355,7 @@ public class NewGame implements ActionListener{
                 buttons.get(6).setText("T");
                 buttons.get(7).setText("I");
                 buttons.get(8).setText("E");
-                Player.user.set("0","0","1");
+                TIE = true;
                 for (int i = 0; i < 9; i++) {
                     buttons.get(i).setEnabled(false);
                 }
@@ -436,6 +435,75 @@ public class NewGame implements ActionListener{
             bChoice.setText("O");
             win("O");
             yourTurn = true;
+        }
+    }
+    public void updateScores(){
+        final String newline = "\n";
+        try {
+            // Step 1:  Create an object of FileOutputStream
+            FileWriter outputStream = new FileWriter("ScoreBoard.txt");
+            fileReader(outputStream);
+            for (String line : scores) {
+                String userName = line.substring(0, line.indexOf(":") );
+                int neWin = Integer.parseInt(line.substring(line.indexOf(":")+2, line.indexOf("/")));
+                int newLos = Integer.parseInt(line.substring(line.indexOf("/")+1, line.lastIndexOf("/")));
+                int newTie = Integer.parseInt(line.substring(line.lastIndexOf("/")+1));
+
+                if (Player.user.getUsername().equals(userName)){
+
+                    if (WIN){
+                        Player.user.set(neWin+1, newLos,newTie);
+                    } else if (LOS){
+                        Player.user.set(neWin, newLos+1,newTie);
+                    } else if (TIE){
+                        Player.user.set(neWin, newLos,newTie+1);
+                    } else{
+                        Player.user.set(neWin, newLos,newTie);
+                    }
+                    scores.set(scores.indexOf(line),Player.user.getScore());
+                }
+                if (line.substring(0,line.indexOf(":")).equals("Bny")){
+                    if (WIN){
+                        scores.set(scores.indexOf(line),"Bny: " + (neWin) + "/" + (newLos+1)+"/"+(newTie) );
+                    } else if (LOS){
+                        scores.set(scores.indexOf(line),"Bny: " + (neWin+1) + "/" + (newLos)+"/"+(newTie) );
+                    } else if (TIE){
+                        scores.set(scores.indexOf(line),"Bny: " + (neWin) + "/" + (newLos)+"/"+(newTie+1) );
+                    }
+                }
+
+                outputStream.write(scores.get(scores.indexOf(line)) + newline);
+            }
+            outputStream.close();
+
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+    private void fileReader(FileWriter outputStream) {
+        try {
+            //open the file.
+            FileReader file = new FileReader("ScoreBoard.txt");
+
+            // make a scanner
+            Scanner in = new Scanner(file);
+
+
+            // puts all words in arraylist
+            while (in.hasNextLine()) {
+                scores.add(in.nextLine());
+                /*try {
+                    outputStream.write("");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }*/
+            }
+
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -101,20 +101,21 @@ public class ScoreBoard extends JPanel implements ActionListener {
             String userName = score.substring(0, score.indexOf(":") );
             String newScore = user.getScore();
             if (user.getUsername().equals(userName)){
-                win = Integer.parseInt(score.substring(score.indexOf(":")+2, score.indexOf("/")));
-                los = Integer.parseInt(score.substring(score.indexOf("/")+1, score.lastIndexOf("/")));
-                tie = Integer.parseInt(score.substring(score.lastIndexOf("/")+1));
+                int neWin = Integer.parseInt(score.substring(score.indexOf(":")+2, score.indexOf("/")));
+                int newLos = Integer.parseInt(score.substring(score.indexOf("/")+1, score.lastIndexOf("/")));
+                int newTie = Integer.parseInt(score.substring(score.lastIndexOf("/")+1));
 
-                int neWin = Integer.parseInt(newScore.substring(newScore.indexOf(":")+2, newScore.indexOf("/")));
-                int newLos = Integer.parseInt(newScore.substring(newScore.indexOf("/")+1, newScore.lastIndexOf("/")));
-                int newTie = Integer.parseInt(newScore.substring(newScore.lastIndexOf("/")+1));
+                win = Integer.parseInt(newScore.substring(newScore.indexOf(":")+2, newScore.indexOf("/")));
+                los = Integer.parseInt(newScore.substring(newScore.indexOf("/")+1, newScore.lastIndexOf("/")));
+                tie = Integer.parseInt(newScore.substring(newScore.lastIndexOf("/")+1));
 
                 user.set(win+neWin, los+newLos,tie+newTie);
                 scores.set(scores.indexOf(score),user.getScore());
                 newUserName = false;
-            } else { user.set(win,los,tie); }
+                tA.append(">" + score + "<" + newline);
+            } else { tA.append(score + newline); }
 
-            tA.append(score + newline);
+
         }
 
         if (newUserName){
