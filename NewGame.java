@@ -15,7 +15,7 @@ public class NewGame implements ActionListener{
     JFrame frame = new JFrame();
     //JPanel title_panel = new JPanel();
     JPanel grid = new JPanel();
-    //JLabel textfield = new JLabel();
+    //JLabel textField = new JLabel();
     boolean gameOver = false;
     public ArrayList<String> scores = new ArrayList<>();
 
@@ -27,7 +27,9 @@ public class NewGame implements ActionListener{
     private boolean TIE = false;
 
     NewGame(){
-        frame.setDefaultCloseOperation(frame.DO_NOTHING_ON_CLOSE);
+        frame.setDefaultCloseOperation(frame.HIDE_ON_CLOSE);
+
+
         for(int i=0;i<9;i++){
             buttons.add(i,new JButton());
             buttons.get(i).setText("");
@@ -40,11 +42,14 @@ public class NewGame implements ActionListener{
         grid.setLayout(new GridLayout(3, 3));
         grid.setBackground(new Color(150,150,150));
         // makes a vertical box layout for the grid of button.
-        BoxLayout mainLayout = new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS);
+        BoxLayout mainLayout = new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS);
         frame.getContentPane().setLayout(mainLayout);
         // add the grid
         frame.getContentPane().add(grid);
+
+
         frame.setVisible(true);
+
 
     }
     @Override
@@ -86,6 +91,7 @@ public class NewGame implements ActionListener{
 
 
     }
+
 
     public void fTurn() {
         yourTurn = random.nextInt(2) == 1;
@@ -370,20 +376,6 @@ public class NewGame implements ActionListener{
         Random random = new Random();
         return (random.nextInt(max - min) + min);
     }
-    /*public boolean nextTo (int button_, JButton next_to){
-        return switch (button_) {
-            case 1 -> (next_to == buttons.get(0) || next_to == buttons.get(4) || next_to == buttons.get(3));
-            case 2 -> (next_to == buttons.get(0) || next_to == buttons.get(4) || next_to == buttons.get(2));
-            case 3 -> (next_to == buttons.get(1) || next_to == buttons.get(4) || next_to == buttons.get(5));
-            case 4 -> (next_to == buttons.get(0) || next_to == buttons.get(4) || next_to == buttons.get(6));
-            case 5 -> (true);
-            case 6 -> (next_to == buttons.get(2) || next_to == buttons.get(4) || next_to == buttons.get(8));
-            case 7 -> (next_to == buttons.get(7) || next_to == buttons.get(4) || next_to == buttons.get(3));
-            case 8 -> (next_to == buttons.get(6) || next_to == buttons.get(4) || next_to == buttons.get(8));
-            case 9 -> (next_to == buttons.get(7) || next_to == buttons.get(4) || next_to == buttons.get(5));
-            default -> false;
-        };
-    }*/
 
     public void aiBenny() {
         JButton bChoice;

@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 public class Menu {
     JFrame frame;
     JLabel label;
@@ -9,7 +11,10 @@ public class Menu {
     public static JButton sbButton = new JButton("SCOREBOARD");
     public static JButton exitButton = new JButton("EXIT");
     Player user = new Player();
+
+
     public Menu(){
+
         frame = new JFrame("Menu");
         JPanel grid = new JPanel();
         GridLayout layout = new GridLayout(3, 3);
@@ -53,18 +58,18 @@ class ButtonListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(button.getText().equals ("NEW GAME")){
-            new NewGame();
+            NewGame gg = new NewGame();
         }else if(button.getText().equals ("EXIT")){
             System.exit (0);
-        } else if (button.getText().equals("SCOREBOARD")) {
+        } else if (button.getText().equals("SCOREBOARD") ) {
 
             JFrame Score_Board = new JFrame("Score_Board");
-            Score_Board.add(new ScoreBoard());
+            ScoreBoard sB = new ScoreBoard();
+            Score_Board.add(sB);
             Score_Board.setSize(300, 300);
             // create the box layout
             Score_Board.getContentPane().setLayout(new BoxLayout(Score_Board.getContentPane(), BoxLayout.Y_AXIS));
             // display the window.
-
             Score_Board.pack();
             Score_Board.setLocationRelativeTo(null);
             Score_Board.setVisible(true);

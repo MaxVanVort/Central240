@@ -1,4 +1,4 @@
-Bny: 0/1/2
-Player: 1/0/0
-Carter: 0/0/1
+Bny: 1/1/7
+Player: 1/1/2
+Carter: 0/0/4
 Nikki: 0/0/1

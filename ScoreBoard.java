@@ -13,7 +13,6 @@ public class ScoreBoard extends JPanel implements ActionListener {
     protected JTextField tF;
     protected JTextArea tA;
     private final static String newline = "\n";
-    public JButton menu = new JButton("MENU");
     public ArrayList<String> scores = new ArrayList<>();
     Player user = Player.user.getPlayer();
     int win;
@@ -21,8 +20,11 @@ public class ScoreBoard extends JPanel implements ActionListener {
     int tie;
     public ScoreBoard(){
 
-        tF = new JTextField("Player",20);
+        tF = new JTextField(user.getUsername(),20);
         tA = new JTextArea(13, 13);
+        if (!tA.isVisible()){
+
+        }
         tA.setEditable(false);
         JScrollPane scrollPane = new JScrollPane(tA);
 
@@ -57,6 +59,7 @@ public class ScoreBoard extends JPanel implements ActionListener {
             tA.append(score + newline);
         }
         tF.addActionListener(this);
+
     }
     private void fileReader() {
         try {
@@ -96,7 +99,6 @@ public class ScoreBoard extends JPanel implements ActionListener {
             e.printStackTrace();
         }
     }
-
     @Override
     public void actionPerformed(ActionEvent e) {
         String text = tF.getText();
@@ -122,6 +124,8 @@ public class ScoreBoard extends JPanel implements ActionListener {
         for (String score:scores){
             String userName = score.substring(0, score.indexOf(":") );
             String newScore = user.getScore();
+            int currentLine = scores.indexOf(score);
+
             if (user.getUsername().equals(userName)){
                 int neWin = Integer.parseInt(score.substring(score.indexOf(":")+2, score.indexOf("/")));
                 int newLos = Integer.parseInt(score.substring(score.indexOf("/")+1, score.lastIndexOf("/")));
@@ -131,11 +135,11 @@ public class ScoreBoard extends JPanel implements ActionListener {
                 los = Integer.parseInt(newScore.substring(newScore.indexOf("/")+1, newScore.lastIndexOf("/")));
                 tie = Integer.parseInt(newScore.substring(newScore.lastIndexOf("/")+1));
 
-                user.set(win, los, tie);
+                user.set(neWin, newLos, newTie);
                 scores.set(scores.indexOf(score),user.getScore());
                 newUserName = false;
-                tA.append(">" + score + "<" + newline);
-            } else { tA.append(score + newline); }
+                tA.append(">" + scores.get(currentLine) + "<" + newline);
+            } else { tA.append(scores.get(currentLine) + newline); }
 
 
         }
@@ -148,6 +152,8 @@ public class ScoreBoard extends JPanel implements ActionListener {
         }
         tF.selectAll();
         tA.setCaretPosition(tA.getDocument().getLength());
+
+
     }
 
 
