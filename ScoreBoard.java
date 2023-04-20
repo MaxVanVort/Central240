@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -48,7 +50,7 @@ public class ScoreBoard extends JPanel implements ActionListener {
                 los = Integer.parseInt(newScore.substring(newScore.indexOf("/")+1, newScore.lastIndexOf("/")));
                 tie = Integer.parseInt(newScore.substring(newScore.lastIndexOf("/")+1));
 
-                user.set(win+neWin, los+newLos,tie+newTie);
+                user.set(neWin, newLos,newTie);
                 scores.set(scores.indexOf(score),user.getScore());
             } else { user.set(win,los,tie); }
 
@@ -72,6 +74,26 @@ public class ScoreBoard extends JPanel implements ActionListener {
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+    public void newScores(){
+        try {
+            // Step 1:  Create an object of FileOutputStream
+            FileWriter outputStream = new FileWriter("ScoreBoard.txt");
+            for (String line : scores) {
+
+                int currentLine = scores.indexOf(line);
+
+                outputStream.write(scores.get(currentLine) + newline);
+
+            }
+
+            outputStream.close();
+
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 
@@ -109,7 +131,7 @@ public class ScoreBoard extends JPanel implements ActionListener {
                 los = Integer.parseInt(newScore.substring(newScore.indexOf("/")+1, newScore.lastIndexOf("/")));
                 tie = Integer.parseInt(newScore.substring(newScore.lastIndexOf("/")+1));
 
-                user.set(win+neWin, los+newLos,tie+newTie);
+                user.set(win, los, tie);
                 scores.set(scores.indexOf(score),user.getScore());
                 newUserName = false;
                 tA.append(">" + score + "<" + newline);
@@ -119,7 +141,10 @@ public class ScoreBoard extends JPanel implements ActionListener {
         }
 
         if (newUserName){
+            user.set(0,0,0);
             tA.append(">" + user.getScore() + "<" + newline);
+            scores.add(user.getScore());
+            newScores();
         }
         tF.selectAll();
         tA.setCaretPosition(tA.getDocument().getLength());

@@ -441,13 +441,14 @@ public class NewGame implements ActionListener{
         final String newline = "\n";
         try {
             // Step 1:  Create an object of FileOutputStream
+            fileReader();
             FileWriter outputStream = new FileWriter("ScoreBoard.txt");
-            fileReader(outputStream);
             for (String line : scores) {
                 String userName = line.substring(0, line.indexOf(":") );
                 int neWin = Integer.parseInt(line.substring(line.indexOf(":")+2, line.indexOf("/")));
                 int newLos = Integer.parseInt(line.substring(line.indexOf("/")+1, line.lastIndexOf("/")));
                 int newTie = Integer.parseInt(line.substring(line.lastIndexOf("/")+1));
+                int currentLine = scores.indexOf(line);
 
                 if (Player.user.getUsername().equals(userName)){
 
@@ -460,20 +461,24 @@ public class NewGame implements ActionListener{
                     } else{
                         Player.user.set(neWin, newLos,newTie);
                     }
-                    scores.set(scores.indexOf(line),Player.user.getScore());
+                    scores.set(currentLine,Player.user.getScore());
                 }
                 if (line.substring(0,line.indexOf(":")).equals("Bny")){
                     if (WIN){
-                        scores.set(scores.indexOf(line),"Bny: " + (neWin) + "/" + (newLos+1)+"/"+(newTie) );
+                        scores.set(currentLine,"Bny: " + (neWin) + "/" + (newLos+1)+"/"+(newTie) );
                     } else if (LOS){
-                        scores.set(scores.indexOf(line),"Bny: " + (neWin+1) + "/" + (newLos)+"/"+(newTie) );
+                        scores.set(currentLine,"Bny: " + (neWin+1) + "/" + (newLos)+"/"+(newTie) );
                     } else if (TIE){
-                        scores.set(scores.indexOf(line),"Bny: " + (neWin) + "/" + (newLos)+"/"+(newTie+1) );
+                        scores.set(currentLine,"Bny: " + (neWin) + "/" + (newLos)+"/"+(newTie+1) );
                     }
                 }
 
-                outputStream.write(scores.get(scores.indexOf(line)) + newline);
+
+                outputStream.write(scores.get(currentLine) + newline);
+
+
             }
+
             outputStream.close();
 
 
@@ -482,7 +487,7 @@ public class NewGame implements ActionListener{
             e.printStackTrace();
         }
     }
-    private void fileReader(FileWriter outputStream) {
+    private void fileReader() {
         try {
             //open the file.
             FileReader file = new FileReader("ScoreBoard.txt");
@@ -494,11 +499,6 @@ public class NewGame implements ActionListener{
             // puts all words in arraylist
             while (in.hasNextLine()) {
                 scores.add(in.nextLine());
-                /*try {
-                    outputStream.write("");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }*/
             }
 
 
